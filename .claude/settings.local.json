@@ -1,13 +1,6 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(git push:*)",
-      "Bash(git remote set-url:*)",
-      "Bash(awk:*)",
-      "Bash(git rm:*)",
-      "Bash(git commit:*)",
-      "Bash(git init:*)"
-    ],
+    "allow": ["Bash(git push:*)", "Bash(git rm:*)", "Bash(git commit:*)"],
     "deny": [],
     "ask": []
   }
