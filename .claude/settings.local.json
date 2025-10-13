@@ -1,6 +1,14 @@
 {
   "permissions": {
-    "allow": ["Bash(git push:*)", "Bash(git rm:*)", "Bash(git commit:*)"],
+    "allow": [
+      "Bash(git push:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(xcode-select:*)",
+      "Bash(brew install:*)",
+      "Bash(source:*)",
+      "Bash(softwareupdate --list)"
+    ],
     "deny": [],
     "ask": []
   }
