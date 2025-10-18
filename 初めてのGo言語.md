@@ -19,9 +19,9 @@ go vet ./...
 ## 配列
 
 ```go
-var x =[3]int
-var x = [3]int{10,20,30} //初期化
-var x = [...]int{10,20,30} //...で任意の数
+var x = [3]int
+var x = [3]int{10, 20, 30}    // 初期化
+var x = [...]int{10, 20, 30}  // ...で任意の数
 ```
 
 これら 2 つは型が違う。
@@ -29,8 +29,8 @@ var x = [...]int{10,20,30} //...で任意の数
 配列の型は実行時ではなくコンパイル時に決定できる必要がある。
 
 ```go
-var x =[3]int
-var y =[4]int
+var x = [3]int
+var y = [4]int
 ```
 
 配列はこう言った制限があるためにあまり使われないらしい
@@ -43,17 +43,16 @@ var y =[4]int
 スライスは長さを指定しない
 
 ```go
-//配列
-var x = [...]int{10,20,30} //...で任意の数
-//スライス
-var x = []int{10,20,30} //...で任意の数
-
+// 配列
+var x = [...]int{10, 20, 30}  // ...で任意の数
+// スライス
+var x = []int{10, 20, 30}  // 長さを指定しない
 ```
 
 大きさを指定する場合は make を使う
 
 ```go
-x := make([]int ,5)
+x := make([]int, 5)
 ```
 
 ## copy
@@ -61,18 +60,18 @@ x := make([]int ,5)
 スライスを分割した時に同じメモリを使わないようにする
 
 ```go
-x := []int{1,2,3,4}
-y := make([]int,4)
-num :=  copy(y,x) xからyにコピーする
-fmt.Println(y,num) // [1 2 3 4] 4
+x := []int{1, 2, 3, 4}
+y := make([]int, 4)
+num := copy(y, x)  // xからyにコピーする
+fmt.Println(y, num)  // [1 2 3 4] 4
 ```
 
 ## マップ
 
 ```go
 // これは書き込みができない
-var nilMap map[string]int // string→intのマップ。初期値はnil
-nilMap["abc"]=1 //これはエラーになる
+var nilMap map[string]int  // string→intのマップ。初期値はnil
+nilMap["abc"] = 1          // これはエラーになる
 ```
 
 こちらは書き込みができる
@@ -87,16 +86,16 @@ totalWins["ライターズ"] = 1
 `maps` を利用する
 
 ```go
-maps.Equal(m,n);
+maps.Equal(m, n)
 ```
 
 ## 構造体 struct
 
 ```go
 type person struct {
-  name string //名前
-  age int 　// 年齢
-  pet string //ペット
+	name string  // 名前
+	age  int     // 年齢
+	pet  string  // ペット
 }
 ```
 
@@ -104,7 +103,7 @@ type person struct {
 
 ```go
 var fred person
-bob := person{} //全フィールドがゼロ値で初期化される
+bob := person{}  // 全フィールドがゼロ値で初期化される
 ```
 
 初期化するには２種類の方法がある
@@ -113,9 +112,9 @@ bob := person{} //全フィールドがゼロ値で初期化される
 
 ```go
 julia := person{
-  "ジュリア",//name
-  40,//age
-  cat,//pet
+	"ジュリア",  // name
+	40,        // age
+	"cat",     // pet
 }
 ```
 
@@ -123,8 +122,46 @@ julia := person{
 
 ```go
 beth := person{
-  age:30 ,
-  name:"ベス"
+	age:  30,
+	name: "ベス",
+}
+```
+
+# ４章 ブロック、シャドーイング、制御構造
+
+## if 文
+
+スコープが TS とは違う。
+if 文で値を宣言できる。
+
+```go
+if n := rand.Intn(10); n == 0 {
+  fmt.Println("小さすぎます:", n)
+} else if n > 5 {
+  fmt.Println("大きすぎます:", n)
+} else {
+  fmt.Println("いい感じの数です:", n)
+}
+```
+
+## for 文
+
+3 つの要素はいずれも省略できる
+
+```go
+for i := 0; i < 10; i++ {
+	// ループ処理
+}
+```
+
+### for-range ループ
+
+文字列、配列、スライス、マップで使える。
+
+```go
+evenVals := []int{2, 4, 6, 8, 10, 12}
+for i, v := range evenVals {
+	fmt.Println(v, i)
 }
 ```
 
