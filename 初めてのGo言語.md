@@ -11,3 +11,10 @@ fmt.Println("Hello, Go! %s!\n")
 ```sh
 go vet ./...
 ```
+
+# ２章
+
+# 参考
+
+初めての Go 言語 第 2 版のリポジトリ
+https://github.com/mushahiroyuki/lgo2
