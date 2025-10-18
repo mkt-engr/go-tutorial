@@ -7,7 +7,9 @@
       "Bash(xcode-select:*)",
       "Bash(brew install:*)",
       "Bash(source:*)",
-      "Bash(softwareupdate --list)"
+      "Bash(softwareupdate --list)",
+      "Bash(go build)",
+      "Bash(./hello)"
     ],
     "deny": [],
     "ask": []
