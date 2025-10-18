@@ -9,7 +9,8 @@
       "Bash(source:*)",
       "Bash(softwareupdate --list)",
       "Bash(go build)",
-      "Bash(./hello)"
+      "Bash(./hello)",
+      "Bash(go run:*)"
     ],
     "deny": [],
     "ask": []
