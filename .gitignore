@@ -9,6 +9,9 @@
 *.test
 *.out
 
+# Build output directory
+bin/
+
 # Go coverage tools output
 *.cover
 *.coverprofile

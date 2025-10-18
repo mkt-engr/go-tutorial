@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := build
 
-.PHONY: fmt vet build
+.PHONY: fmt vet build clean run
 
 fmt:
 	go fmt ./...
@@ -9,7 +9,12 @@ vet:
 	go vet ./...
 
 build:
-	go build
+	mkdir -p bin
+	go build -o bin/
+
+run: build
+	./bin/*
 
 clean:
+	rm -rf bin
 	go clean
