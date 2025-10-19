@@ -165,6 +165,11 @@ for i, v := range evenVals {
 }
 ```
 
+# switch
+
+go の switch は break を書かない
+その代わり次のケース文を実行する`fallthrough`というのがある
+
 # 参考
 
 初めての Go 言語 第 2 版のリポジトリ

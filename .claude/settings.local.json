@@ -10,7 +10,10 @@
       "Bash(softwareupdate --list)",
       "Bash(go build)",
       "Bash(./hello)",
-      "Bash(go run:*)"
+      "Bash(go run:*)",
+      "Bash(go build:*)",
+      "Bash(./bin/chap04)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
