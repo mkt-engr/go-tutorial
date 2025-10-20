@@ -93,9 +93,9 @@ maps.Equal(m, n)
 
 ```go
 type person struct {
-	name string  // 名前
-	age  int     // 年齢
-	pet  string  // ペット
+ name string  // 名前
+ age  int     // 年齢
+ pet  string  // ペット
 }
 ```
 
@@ -112,9 +112,9 @@ bob := person{}  // 全フィールドがゼロ値で初期化される
 
 ```go
 julia := person{
-	"ジュリア",  // name
-	40,        // age
-	"cat",     // pet
+ "ジュリア",  // name
+ 40,        // age
+ "cat",     // pet
 }
 ```
 
@@ -122,8 +122,8 @@ julia := person{
 
 ```go
 beth := person{
-	age:  30,
-	name: "ベス",
+ age:  30,
+ name: "ベス",
 }
 ```
 
@@ -150,7 +150,7 @@ if n := rand.Intn(10); n == 0 {
 
 ```go
 for i := 0; i < 10; i++ {
-	// ループ処理
+ // ループ処理
 }
 ```
 
@@ -161,14 +161,105 @@ for i := 0; i < 10; i++ {
 ```go
 evenVals := []int{2, 4, 6, 8, 10, 12}
 for i, v := range evenVals {
-	fmt.Println(v, i)
+ fmt.Println(v, i)
 }
 ```
 
-# switch
+## switch
 
 go の switch は break を書かない
 その代わり次のケース文を実行する`fallthrough`というのがある
+
+# ５章 関数
+
+関数の基本形
+TS と違って返り値の型にコロンはつけない
+
+```go
+func  div(num int , denom int) int{
+
+}
+```
+
+同じ型の引数が連続する場合は次のように最後以外の変数の型指定を省略できる
+
+```go
+func calculate(x, y int, message string, a, b float64)
+```
+
+## 可変長の変数
+
+TS とは違い、変数ではなく型に`...`をつける
+
+```go
+// 可変長引数の例 - 整数の合計を計算
+func sum(nums ...int) int {
+  total := 0
+   for _, num := range nums {
+    total += num
+   }
+  return total
+}
+```
+
+使い方はこんな感じ。
+使う時は変数の後に`...`を入れる
+
+```go
+numbers := []int{5, 10, 15, 20}
+sum(numbers...)  // ...でスライスを展開して渡す
+```
+
+## 複数の戻り値
+
+Go の関数は複数の値を返すことができる。エラーハンドリングでよく使われる。
+返り値が 2 つの場合、それを受け止める変数も 2 つ必要になる。TS みたいにオブジェクトとしてまとめて 1 つに受け取ることはできない
+戻り値を無視したい場合は、`_`と変数宣言する
+
+```go
+// 除算の結果とエラーを返す
+func divide(a, b float64) (float64, error) {
+ if b == 0 {
+  return 0, fmt.Errorf("ゼロで除算できません")
+ }
+ return a / b, nil
+}
+
+// 使い方
+result, err := divide(10, 2)
+if err != nil {
+ fmt.Println("エラー:", err)
+} else {
+ fmt.Println("結果:", result)
+}
+```
+
+### 名前付き戻り値
+
+戻り値に名前をつけることができる。名前付き戻り値を使うと、`return`だけで値を返せる。
+
+```go
+func minMax(numbers ...int) (min, max int) {
+ if len(numbers) == 0 {
+  return 0, 0
+ }
+ min = numbers[0]
+ max = numbers[0]
+ for _, num := range numbers {
+  if num < min {
+   min = num
+  }
+  if num > max {
+   max = num
+  }
+ }
+ return // 名前付き戻り値は return だけでOK
+}
+
+// 使い方
+min, max := minMax(3, 7, 2, 9, 1, 5)
+fmt.Printf("最小値: %d, 最大値: %d\n", min, max)
+```
 
 # 参考
 
