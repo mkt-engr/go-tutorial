@@ -66,6 +66,35 @@ func minMax(numbers ...int) (min, max int) {
 	return // 名前付き戻り値は return だけでOK
 }
 
+// deferの例 - 関数終了時に実行される
+func deferExample() {
+	fmt.Println("1. 関数開始")
+	defer fmt.Println("4. defer: 関数終了時に実行される")
+	fmt.Println("2. 処理中...")
+	fmt.Println("3. 処理完了")
+	// 関数終了時にdeferが実行される
+}
+
+// 複数のdeferはLIFO（後入れ先出し）で実行される
+func multipleDeferExample() {
+	fmt.Println("開始")
+	defer fmt.Println("defer 1")
+	defer fmt.Println("defer 2")
+	defer fmt.Println("defer 3")
+	fmt.Println("終了")
+	// 実行順序: defer 3 → defer 2 → defer 1
+}
+
+// deferの実用例：ファイルクローズ
+func readFileExample() {
+	fmt.Println("\nファイル処理の例（疑似コード）")
+	fmt.Println("ファイルをオープン")
+	defer fmt.Println("defer: ファイルをクローズ")
+	fmt.Println("ファイルを読み込み")
+	fmt.Println("データを処理")
+	// 関数終了時に必ずクローズされる
+}
+
 func main() {
 	// firstName と lastName はどちらも string なので省略可能
 	result1 := greet("太郎", "山田", 25)
@@ -109,4 +138,14 @@ func main() {
 	// 名前付き戻り値
 	min, max := minMax(3, 7, 2, 9, 1, 5)
 	fmt.Printf("最小値: %d, 最大値: %d\n", min, max)
+
+	// deferの例
+	fmt.Println("\n--- deferの基本 ---")
+	deferExample()
+
+	fmt.Println("\n--- 複数のdefer ---")
+	multipleDeferExample()
+
+	// deferの実用例
+	readFileExample()
 }

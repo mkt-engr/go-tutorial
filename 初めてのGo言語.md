@@ -261,6 +261,60 @@ min, max := minMax(3, 7, 2, 9, 1, 5)
 fmt.Printf("最小値: %d, 最大値: %d\n", min, max)
 ```
 
+## 関数型の宣言
+
+```go
+type opFuncType func(int,int) int
+var opMap = map[string]onFuncType{
+ "+":add
+}
+```
+
+## 無名関数
+
+```go
+func main(){
+ f := func(j int){
+  fmt.Println("無名関数の中で",j,"を出力")
+ }
+}
+
+for i := 0; i<5; i++{
+ f(i)
+}
+```
+
+## クロージャ
+
+```go
+func main(){
+ a := 20
+ f := func(){
+  fmt.Println(a)
+ a=30
+ }
+ f() // 20
+ fmt.Println(a) //30
+}
+```
+
+## defer
+
+ファイルやネットワーク接続といった一時的なりシースを作成することがある。このリソースはクリーンアップが必要。
+関数が正常終了・以上終了するに関わらず必ず解放する必要がある。
+
+```go
+// deferの実用例：ファイルクローズ
+func readFileExample() {
+ fmt.Println("\nファイル処理の例（疑似コード）")
+ fmt.Println("ファイルをオープン")
+ defer fmt.Println("defer: ファイルをクローズ")
+ fmt.Println("ファイルを読み込み")
+ fmt.Println("データを処理")
+ // 関数終了時に必ずクローズされる
+}
+```
+
 # 参考
 
 初めての Go 言語 第 2 版のリポジトリ
