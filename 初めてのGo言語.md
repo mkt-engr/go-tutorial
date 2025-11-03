@@ -322,4 +322,134 @@ https://github.com/mushahiroyuki/lgo2
 
 # ６章 ポインタ
 
-全然わからん
+## ポインタとは
+
+ポインタは**変数のメモリアドレス**を格納する変数。値そのものではなく、値が保存されている場所を指す。
+
+## 基本的な使い方
+
+```go
+// 通常の変数
+x := 10
+
+// ポインタの宣言（&でアドレスを取得）
+p := &x  // xのアドレスをpに格納
+
+// ポインタから値を取得（*で逆参照）
+fmt.Println(*p)  // 10
+
+// ポインタ経由で値を変更
+*p = 20
+fmt.Println(x)   // 20（元の変数も変わる）
+```
+
+**記号の意味：**
+
+- `&` = アドレス演算子（変数のアドレスを取得）
+- `*` = 逆参照演算子（ポインタが指す値を取得/設定）
+
+## 値渡し vs ポインタ渡し
+
+```go
+// 値渡し（コピーされる）
+func modifyValue(x int) {
+	x = 100  // コピーを変更するだけ
+}
+
+// ポインタ渡し（参照渡し）
+func modifyPointer(x *int) {
+	*x = 100  // 元の値を変更できる
+}
+
+func main() {
+	a := 10
+	modifyValue(a)
+	fmt.Println(a)  // 10（変わらない）
+
+	b := 10
+	modifyPointer(&b)
+	fmt.Println(b)  // 100（変わる！）
+}
+```
+
+## 構造体とポインタ
+
+```go
+type Person struct {
+	Name string
+	Age  int
+}
+
+func birthday(p *Person) {
+	p.Age++  // (*p).Age と書いてもいいが、省略可能
+}
+
+func main() {
+	person := Person{Name: "太郎", Age: 20}
+	birthday(&person)
+	fmt.Println(person)  // {太郎 21}
+}
+```
+
+## nil ポインタ
+
+```go
+var p *int  // nil（何も指していない）
+
+if p == nil {
+	fmt.Println("p は nil です")
+}
+
+// nilポインタを逆参照するとpanicになる
+// fmt.Println(*p)  // 実行時エラー！
+
+// 使う前にnilチェック
+x := 10
+p = &x
+if p != nil {
+	fmt.Println(*p)  // 安全
+}
+```
+
+## new でポインタを作成
+
+```go
+// new は指定した型のゼロ値を持つポインタを返す
+p := new(int)
+fmt.Println(*p)  // 0（ゼロ値）
+
+*p = 42
+fmt.Println(*p)  // 42
+```
+
+## ポインタを使うべき時
+
+**1. 関数で値を変更したい時**
+
+```go
+func increment(x *int) {
+	*x++
+}
+```
+
+**2. 大きなデータをコピーしたくない時**
+
+```go
+type LargeStruct struct {
+	data [1000000]int
+}
+
+// ポインタ渡し：速い
+func process(s *LargeStruct) {
+	// ...
+}
+```
+
+**3. nil（存在しない）を表現したい時**
+
+```go
+var person *Person  // 「まだ存在しない」を表現
+if person == nil {
+	person = &Person{Name: "太郎"}
+}
+```
