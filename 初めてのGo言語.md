@@ -453,3 +453,98 @@ if person == nil {
 	person = &Person{Name: "太郎"}
 }
 ```
+
+# 7 章 型、メソッド、インターフェース
+
+## 関数とメソッドの違い
+
+### 関数
+
+- 独立して存在する
+- 特定の型に紐付かない
+
+```go
+// 関数：独立している
+func calculateArea(width, height int) int {
+	return width * height
+}
+
+// 呼び出し
+area := calculateArea(10, 5)
+```
+
+### メソッド
+
+- 特定の型（レシーバー）に紐付く
+- その型の「動作」を定義する
+
+```go
+type Rectangle struct {
+	Width  int
+	Height int
+}
+
+// メソッド：Rectangle型に紐付く
+func (r Rectangle) Area() int {
+	return r.Width * r.Height
+}
+
+// 呼び出し
+rect := Rectangle{Width: 10, Height: 5}
+area := rect.Area()  // より読みやすい
+```
+
+## レシーバーの種類
+
+### 値レシーバー
+
+コピーが渡される。元の値は変更されない。
+
+```go
+func (r Rectangle) Area() int {
+	// rはコピー（元の値は変更されない）
+	return r.Width * r.Height
+}
+```
+
+### ポインタレシーバー
+
+ポインタが渡される。元の値を変更できる。
+
+```go
+func (r *Rectangle) Scale(factor int) {
+	// rはポインタ（元の値を変更できる）
+	r.Width *= factor
+	r.Height *= factor
+}
+
+// 使用例
+rect := Rectangle{Width: 10, Height: 5}
+rect.Scale(2)  // {20 10}
+```
+
+## どちらを使うべきか
+
+**ポインタレシーバーを使う場合：**
+
+- メソッドでレシーバーを変更する必要がある
+- レシーバーが大きな構造体（コピーコストが高い）
+- 一貫性のため（同じ型のメソッドは統一する）
+
+**値レシーバーを使う場合：**
+
+- レシーバーを変更しない
+- レシーバーが小さい型（int、bool、小さな構造体）
+- 不変性を保ちたい
+
+## メソッドの自動変換
+
+Go は自動的に`&`や`*`を補完してくれる。
+
+```go
+rect := Rectangle{Width: 5, Height: 3}
+rect.Scale(2)  // (&rect).Scale(2) と同じ
+
+pRect := &Rectangle{Width: 7, Height: 4}
+area := pRect.Area()  // (*pRect).Area() と同じ
+```
