@@ -319,3 +319,7 @@ func readFileExample() {
 
 初めての Go 言語 第 2 版のリポジトリ
 https://github.com/mushahiroyuki/lgo2
+
+# ６章 ポインタ
+
+全然わからん
