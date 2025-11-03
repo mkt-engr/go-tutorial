@@ -353,22 +353,22 @@ fmt.Println(x)   // 20（元の変数も変わる）
 ```go
 // 値渡し（コピーされる）
 func modifyValue(x int) {
-	x = 100  // コピーを変更するだけ
+ x = 100  // コピーを変更するだけ
 }
 
 // ポインタ渡し（参照渡し）
 func modifyPointer(x *int) {
-	*x = 100  // 元の値を変更できる
+ *x = 100  // 元の値を変更できる
 }
 
 func main() {
-	a := 10
-	modifyValue(a)
-	fmt.Println(a)  // 10（変わらない）
+ a := 10
+ modifyValue(a)
+ fmt.Println(a)  // 10（変わらない）
 
-	b := 10
-	modifyPointer(&b)
-	fmt.Println(b)  // 100（変わる！）
+ b := 10
+ modifyPointer(&b)
+ fmt.Println(b)  // 100（変わる！）
 }
 ```
 
@@ -376,18 +376,18 @@ func main() {
 
 ```go
 type Person struct {
-	Name string
-	Age  int
+ Name string
+ Age  int
 }
 
 func birthday(p *Person) {
-	p.Age++  // (*p).Age と書いてもいいが、省略可能
+ p.Age++  // (*p).Age と書いてもいいが、省略可能
 }
 
 func main() {
-	person := Person{Name: "太郎", Age: 20}
-	birthday(&person)
-	fmt.Println(person)  // {太郎 21}
+ person := Person{Name: "太郎", Age: 20}
+ birthday(&person)
+ fmt.Println(person)  // {太郎 21}
 }
 ```
 
@@ -397,7 +397,7 @@ func main() {
 var p *int  // nil（何も指していない）
 
 if p == nil {
-	fmt.Println("p は nil です")
+ fmt.Println("p は nil です")
 }
 
 // nilポインタを逆参照するとpanicになる
@@ -407,7 +407,7 @@ if p == nil {
 x := 10
 p = &x
 if p != nil {
-	fmt.Println(*p)  // 安全
+ fmt.Println(*p)  // 安全
 }
 ```
 
@@ -428,7 +428,7 @@ fmt.Println(*p)  // 42
 
 ```go
 func increment(x *int) {
-	*x++
+ *x++
 }
 ```
 
@@ -436,12 +436,12 @@ func increment(x *int) {
 
 ```go
 type LargeStruct struct {
-	data [1000000]int
+ data [1000000]int
 }
 
 // ポインタ渡し：速い
 func process(s *LargeStruct) {
-	// ...
+ // ...
 }
 ```
 
@@ -450,7 +450,7 @@ func process(s *LargeStruct) {
 ```go
 var person *Person  // 「まだ存在しない」を表現
 if person == nil {
-	person = &Person{Name: "太郎"}
+ person = &Person{Name: "太郎"}
 }
 ```
 
@@ -466,7 +466,7 @@ if person == nil {
 ```go
 // 関数：独立している
 func calculateArea(width, height int) int {
-	return width * height
+ return width * height
 }
 
 // 呼び出し
@@ -480,13 +480,13 @@ area := calculateArea(10, 5)
 
 ```go
 type Rectangle struct {
-	Width  int
-	Height int
+ Width  int
+ Height int
 }
 
 // メソッド：Rectangle型に紐付く
 func (r Rectangle) Area() int {
-	return r.Width * r.Height
+ return r.Width * r.Height
 }
 
 // 呼び出し
@@ -502,8 +502,8 @@ area := rect.Area()  // より読みやすい
 
 ```go
 func (r Rectangle) Area() int {
-	// rはコピー（元の値は変更されない）
-	return r.Width * r.Height
+ // rはコピー（元の値は変更されない）
+ return r.Width * r.Height
 }
 ```
 
@@ -513,9 +513,9 @@ func (r Rectangle) Area() int {
 
 ```go
 func (r *Rectangle) Scale(factor int) {
-	// rはポインタ（元の値を変更できる）
-	r.Width *= factor
-	r.Height *= factor
+ // rはポインタ（元の値を変更できる）
+ r.Width *= factor
+ r.Height *= factor
 }
 
 // 使用例
