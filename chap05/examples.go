@@ -95,7 +95,7 @@ func readFileExample() {
 	// 関数終了時に必ずクローズされる
 }
 
-func main() {
+func main2() {
 	// firstName と lastName はどちらも string なので省略可能
 	result1 := greet("太郎", "山田", 25)
 	fmt.Println(result1)
